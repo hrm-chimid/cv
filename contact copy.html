@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Contact Me!</title>
+</head>
+
+<body>
+    <h1>Ways to Contact Me</h1>
+    <p>Email</p>
+    <p>Telephone</p>
+
+    <form id="form">
+        <label>Your Name:</label>
+        <input type="text" name="name" value="">
+        <br>
+        <label>Password:</label>
+        <input type="password" name="message">
+        <button type="submit" onsubmit="submit">Submit</button>
+        <br>
+        <label>Proof of Gayness:</label>
+        <input type="file">
+    </form>
+    <script>
+        function submit(event) {
+            event.preventDefault()
+            return _submitFn(event)
+        }
+        const form = document.getElementById('form')
+        const _submitFn = (ev) => {
+            ev.preventDefault()
+            console.log(ev)
+            fetch({
+                url: 'https://test-pb-1.chimid.rocks/api/collections/message/records',
+                body: {
+                    "name": ev.value.name,
+                    "message": ev.value.message
+                },
+                headers: {
+                    'Accept': 'application/json'
+                }
+            }).then(res => console.log(res)).catch(console.error)
+        }
+
+        form.onsubmit(submit)
+    </script>
+</body>
+
+</html>
